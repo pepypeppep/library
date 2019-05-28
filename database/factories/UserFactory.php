@@ -1,9 +1,10 @@
 <?php
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
+use App\Book;
 use App\User;
-use Illuminate\Support\Str;
 use Faker\Generator as Faker;
+use Illuminate\Support\Str;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,12 +17,24 @@ use Faker\Generator as Faker;
 |
 */
 
+// Fill Users Table
 $factory->define(User::class, function (Faker $faker) {
 	return [
-        'username' 		=> 'atma_user'.$faker->unique()->randomNumber(1),
+        'username' 		=> 'atma_user'.$faker->unique()->randomElement([1,2,3,4,5]),
         'password' 		=> bcrypt('qwerty123'),
         'fullname'		=> $faker->name,
         'created_at'	=> now(),
         'active'		=> $faker->randomElement(['1' ,'0']),
+    ];
+});
+
+// Fill Books Table
+$factory->define(Book::class, function (Faker $faker) {
+	return [
+        'title' 		=> $faker->word,
+        'desc' 			=> $faker->text,
+        'created_by'	=> $faker->randomElement([1,2,3,4,5]),
+        'active'		=> $faker->randomElement(['1' ,'0']),
+        'created_at'	=> now(),
     ];
 });
